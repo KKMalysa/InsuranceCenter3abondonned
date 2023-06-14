@@ -3,9 +3,11 @@ package com.karolmalysa.insurancecenter.model.dto;
 import com.karolmalysa.insurancecenter.model.entities.Product;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@NoArgsConstructor
 public class ProductDto {
 
 
