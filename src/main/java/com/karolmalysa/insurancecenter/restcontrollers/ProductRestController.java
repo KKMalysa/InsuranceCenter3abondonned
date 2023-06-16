@@ -3,11 +3,11 @@ package com.karolmalysa.insurancecenter.restcontrollers;
 
 import com.karolmalysa.insurancecenter.model.components.ProductComponnent;
 import com.karolmalysa.insurancecenter.model.dto.ProductDto;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/product")
@@ -22,5 +22,14 @@ public class ProductRestController {
 
     }
 
+    @GetMapping(produces = "application/json")
+    public List<ProductDto> findAllProducts() {
+        return  productComponnent.findAll();
+    }
+
+    @GetMapping(value = "/by-price/{minPrice}/{maxPrice}", produces = "application/json")
+    public List<ProductDto> findProductsByPriceBetween(@PathVariable("minPrice") Long minPrice, @PathVariable ("maxPrice") Long maxPrice) {
+        return  productComponnent.findByPriceBetween(minPrice, maxPrice );
+    }
 
 }

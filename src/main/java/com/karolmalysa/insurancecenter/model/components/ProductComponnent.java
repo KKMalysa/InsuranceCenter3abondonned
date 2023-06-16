@@ -7,6 +7,9 @@ import org.hibernate.annotations.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class ProductComponnent {
 
@@ -24,6 +27,21 @@ public class ProductComponnent {
         return new ProductDto(product);
     }
 
+
+    public List<ProductDto> findAll () {
+        return productDao.findAll().stream()
+                .map(product -> new ProductDto(product))
+                .collect(Collectors.toList());
+
+
+    }
+    public List<ProductDto> findByPriceBetween (Long minPrice, Long maxPrice ) {
+        return productDao.findByPriceBetween (minPrice.floatValue(),maxPrice.floatValue() ).stream()
+                .map(product -> new ProductDto(product))
+                .collect(Collectors.toList());
+
+
+    }
 
 
 
