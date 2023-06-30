@@ -5,7 +5,10 @@ import com.karolmalysa.insurancecenter.model.components.ProductComponnent;
 import com.karolmalysa.insurancecenter.model.dto.ProductDto;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+
+
 
 import java.util.List;
 
@@ -22,9 +25,15 @@ public class ProductRestController {
 
     }
 
-    @GetMapping(produces = "application/json")
+    @GetMapping(value = "all", produces = "application/json")
     public List<ProductDto> findAllProducts() {
         return  productComponnent.findAll();
+    }
+
+    @GetMapping(produces = "application/json")
+    public List<ProductDto> findAllProductsWithPagination(@PathParam("page") Integer pageNumber, @PathParam("size") Integer pageSize) {
+
+        return  productComponnent.findAll(pageNumber, pageSize);
     }
 
     @GetMapping(value = "/by-price/{minPrice}/{maxPrice}", produces = "application/json")

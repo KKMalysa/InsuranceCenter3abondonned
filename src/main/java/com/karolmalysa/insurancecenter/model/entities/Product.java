@@ -5,10 +5,6 @@ import lombok.Data;
 
 @Entity
 @Table(name = "insurances")
-@NamedQueries(value = {
-        @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
-        @NamedQuery(name = "Product.findByPriceBetween", query = "SELECT p FROM Product p where p.price >= :minPrice and p.price <= :maxPrice"),
-})
 @Data
 public class Product {
 
