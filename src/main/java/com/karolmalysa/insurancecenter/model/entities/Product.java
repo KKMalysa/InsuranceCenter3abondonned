@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class Product {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //autoincrementation of id
     private Long id;
@@ -19,5 +20,9 @@ public class Product {
     private Long amount = 1L;
     @Column(name = "price", nullable = false)
     private  Float price; //BigDecimal?
+
+    @ManyToOne
+    @JoinColumn(name = "idCompanyClient", nullable = false)
+    private CompanyClient companyClient;
 
 }
