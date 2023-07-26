@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 @Component
@@ -29,14 +30,28 @@ public class CompanyClientComponnent {
 
     public List<CompanyClientDto> findAll () {
         return companyClientRepository.findAll().stream()
-                .map(CompanyClientDto::new)                                                                             //thanks KW
+                .map(CompanyClientDto::new)
+                .collect(Collectors.toList());
+
+    }
+                                                                                                                         //thanks KW
+
+    public List<CompanyClientDto> findAll (Integer pageNumber, Integer pageSize) {
+        return companyClientRepository.findAll(PageRequest.of(pageNumber, pageSize)).stream()
+                .map(CompanyClientDto::new)
                 .collect(Collectors.toList());
 
     }
 
-    /** pagination */
-    public List<CompanyClientDto> findAll (Integer pageNumber, Integer pageSize) {
-        return companyClientRepository.findAll(PageRequest.of(pageNumber, pageSize)).stream()
+    /**
+     * @TODO - futurede velop
+     *  If @param productNumber is <1 than comes a risk of potential fraud.
+     *  emplyee needs to check, if the client is getting multiple insurance for the same object,
+     *  if so, than there needs to be a currency period, if no, than he can get a discount for a frequent customer.
+     *
+     */
+    public List<CompanyClientDto> findMultipleInsuredClients () {
+        return companyClientRepository.findAll().stream().filter(companyClient -> companyClient.getProductList().size() > 1)
                 .map(CompanyClientDto::new)
                 .collect(Collectors.toList());
 

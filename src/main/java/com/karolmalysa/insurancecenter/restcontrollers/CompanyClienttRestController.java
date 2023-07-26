@@ -3,12 +3,12 @@ package com.karolmalysa.insurancecenter.restcontrollers;
 
 import com.karolmalysa.insurancecenter.model.components.CompanyClientComponnent;
 import com.karolmalysa.insurancecenter.model.dto.CompanyClientDto;
-import com.karolmalysa.insurancecenter.model.entities.CompanyClient;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companyClient")
@@ -34,5 +34,10 @@ public class CompanyClienttRestController {
         return  companyClientComponnent.findAll(pageNumber, pageSize);
     }
 
+    @GetMapping(value = "/multiple-insured", produces = "application/json")
+    public List<CompanyClientDto> findMultipleInsuredClients() {
+
+        return  companyClientComponnent.findMultipleInsuredClients();
+    }
 
 }

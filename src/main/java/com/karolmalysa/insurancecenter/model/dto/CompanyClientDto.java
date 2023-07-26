@@ -28,7 +28,7 @@ public class CompanyClientDto {
 
     private String phone;
 
-    private List<Long> productList;
+    private List<String> productList;
 
 
 
@@ -53,6 +53,6 @@ public class CompanyClientDto {
        this.pesel = companyClient.getPesel();
        this.address = companyClient.getAddress();
        this.phone = companyClient.getPhone();
-       this.productList = companyClient.getProductList().stream().map(Product::getId).collect(Collectors.toList());
+       this.productList = companyClient.getProductList().stream().map(Product::getName).collect(Collectors.toList());
     }
 }
